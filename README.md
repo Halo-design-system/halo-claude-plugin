@@ -1,6 +1,6 @@
 # Halo plugin for Claude Code
 
-The Claude Code plugin for the [Halo design system](https://halo-design-system.github.io/Halo-design-system/): four skills for building, reviewing, theming and migrating React UI with Halo, and an MCP server with every component's props, examples and usage guidance.
+The Claude Code plugin for the [Halo design system](https://halo-design-system.github.io/Halo-design-system/): four skills for building, reviewing, theming and migrating React UI with Halo.
 
 ```
 /plugin marketplace add Halo-design-system/halo-claude-plugin
