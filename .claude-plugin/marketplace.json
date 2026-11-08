@@ -1,6 +1,6 @@
 {
   "name": "halo-design-system",
-  "description": "Skills and an MCP server for building with the Halo design system.",
+  "description": "Skills for building with the Halo design system.",
   "owner": {
     "name": "Halo design system"
   },
@@ -8,7 +8,7 @@
     {
       "name": "halo-ds",
       "source": "./plugins/halo-ds",
-      "description": "Build, review and theme UI with Halo, with live component docs through MCP."
+      "description": "Build, review, theme and migrate React UI with Halo."
     }
   ]
 }

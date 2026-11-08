@@ -1,7 +1,7 @@
 name: Sync
 
-# Copies plugins/halo-ds from the newest release of the main Halo repository, so the plugin here
-# always matches the published halo-ds version. Runs daily, or by hand from the Actions tab.
+# Copies plugins/halo-ds from the main branch of the main Halo repository.
+# Runs daily, or by hand from the Actions tab.
 on:
   schedule:
     - cron: '17 6 * * *'
@@ -16,15 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Find the newest Halo release
-        id: tag
-        run: echo "tag=$(git ls-remote --tags --refs https://github.com/Halo-design-system/Halo-design-system.git 'v*' | sed 's#.*refs/tags/##' | sort -V | tail -1)" >> "$GITHUB_OUTPUT"
-
-      - name: Copy the plugin from that release
+      - name: Copy the plugin
         run: |
-          git clone --depth 1 --branch "${{ steps.tag.outputs.tag }}" https://github.com/Halo-design-system/Halo-design-system.git /tmp/halo
-          # Releases before the plugin moved here kept it elsewhere; nothing to copy from those
-          if [ ! -d /tmp/halo/plugins/halo-ds ]; then echo "No plugins/halo-ds in ${{ steps.tag.outputs.tag }}"; exit 0; fi
+          git clone --depth 1 https://github.com/Halo-design-system/Halo-design-system.git /tmp/halo
           rsync -a --delete --exclude LICENSE /tmp/halo/plugins/halo-ds/ plugins/halo-ds/
 
       - name: Commit if anything changed
@@ -33,8 +27,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
-            echo "Already matches ${{ steps.tag.outputs.tag }}"
+            echo "Already matches main"
           else
-            git commit -m "Sync plugin from Halo ${{ steps.tag.outputs.tag }}"
+            git commit -m "Sync plugin from Halo main"
             git push
           fi
